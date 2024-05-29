@@ -1,9 +1,12 @@
 
-securityContext: true
-
-clusterRbac: false
-
-microk8s: false
+instance:
+  securityContext: true
+  clusterRbac: false
+  microk8s: false
 
 jupyterhub:
   password: ""
+
+k8sapi:
+  url: ""
+  token: ""

@@ -14,7 +14,7 @@ spec:
 
     spec:
 
-{{- if .Values.securityContext }}
+{{- if .Values.instance.securityContext }}
       securityContext:
         runAsNonRoot: true
         seccompProfile:
@@ -28,7 +28,7 @@ spec:
         image: hub.cerit.io/josef_handl/jupyterhub:kuba
         imagePullPolicy: Always
 
-{{- if .Values.securityContext }}
+{{- if .Values.instance.securityContext }}
         securityContext:
           privileged: false
           runAsUser: 1000
@@ -44,3 +44,7 @@ spec:
           value: {{ .Release.Namespace }}
         - name: JUPYTERHUB_PASSWORD
           value: {{ .Values.jupyterhub.password }}
+        - name: K8SAPI_URL
+          value: {{ .Values.k8sapi.url }}
+        - name: K8SAPI_TOKEN
+          value: {{ .Values.k8sapi.token }}

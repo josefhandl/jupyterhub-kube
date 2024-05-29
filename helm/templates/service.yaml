@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 80
     targetPort: 8000
-{{- if .Values.microk8s }}
+{{- if .Values.instance.microk8s }}
 ---
 apiVersion: v1
 kind: Service

@@ -6,8 +6,7 @@ metadata:
     kuberentes.io/ingress.class: "nginx"
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/affinity: cookie
-    #nginx.ingress.kubernetes.io/proxy-body-size: "4096m"
+    nginx.ingress.kubernetes.io/affinity: cookie # Solves the problem with XSRF cookie
 spec:
   tls:
     - hosts:
