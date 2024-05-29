@@ -1,0 +1,6 @@
+apiVersion: v2
+name: jupyterhub
+version: 0.0.1
+appVersion: v0.0.0
+kubeVersion: '>= 1.19.0-0'
+description: Jupyterhub test

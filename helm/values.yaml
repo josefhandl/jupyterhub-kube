@@ -1,0 +1,9 @@
+
+securityContext: true
+
+clusterRbac: false
+
+microk8s: false
+
+jupyterhub:
+  password: ""

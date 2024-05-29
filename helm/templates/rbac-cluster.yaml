@@ -1,0 +1,29 @@
+{{- if .Values.clusterRbac }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jupyterhub-spawner-cr
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["create"]
+  - apiGroups: [""]       # "" indicates the core API group
+    resources: ["pods", "persistentvolumeclaims", "secrets", "services"]
+    verbs: ["get", "watch", "list", "create", "delete"]
+  - apiGroups: [""]       # "" indicates the core API group
+    resources: ["events"]
+    verbs: ["get", "watch", "list"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jupyterhub-spawner-crb
+subjects:
+  - kind: ServiceAccount
+    name: jupyterhub-spawner-sa
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: jupyterhub-spawner-cr
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

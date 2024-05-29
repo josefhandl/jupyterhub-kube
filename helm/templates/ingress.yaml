@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jupyterhub-ingress
+  annotations:
+    kuberentes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/affinity: cookie
+    #nginx.ingress.kubernetes.io/proxy-body-size: "4096m"
+spec:
+  tls:
+    - hosts:
+        - "jupyterhub.{{ .Release.Namespace }}.dyn.cloud.e-infra.cz"
+      secretName: jupyterhub-{{ .Release.Namespace }}-dyn-cloud-e-infra-cz
+  rules:
+  - host: "jupyterhub.{{ .Release.Namespace }}.dyn.cloud.e-infra.cz"
+    http:
+      paths:
+      - backend:
+          service:
+            name: jupyterhub-ingress
+            port:
+              number: 80
+        pathType: ImplementationSpecific

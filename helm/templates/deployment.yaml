@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyterhub
+spec:
+  selector:
+    matchLabels:
+      app: jupyterhub
+
+  template:
+    metadata:
+      labels:
+        app: jupyterhub
+
+    spec:
+
+{{- if .Values.securityContext }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+{{- end }}
+
+      serviceAccountName: jupyterhub-spawner-sa
+
+      containers:
+      - name: jupyterhub
+        image: hub.cerit.io/josef_handl/jupyterhub:kuba
+        imagePullPolicy: Always
+
+{{- if .Values.securityContext }}
+        securityContext:
+          privileged: false
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+{{- end }}
+
+        env:
+        - name: NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: JUPYTERHUB_PASSWORD
+          value: {{ .Values.jupyterhub.password }}
