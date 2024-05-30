@@ -3,6 +3,7 @@
 jupyterhub --generate-config
 
 # Generate kube config file
+mkdir -p ~/.kube/
 tee ~/.kube/config << EOF
 apiVersion: v1
 kind: Config

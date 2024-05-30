@@ -21,7 +21,8 @@ spec:
           type: RuntimeDefault
 {{- end }}
 
-      serviceAccountName: jupyterhub-spawner-sa
+      #serviceAccountName: jupyterhub-spawner-sa
+      automountServiceAccountToken: false
 
       containers:
       - name: jupyterhub
