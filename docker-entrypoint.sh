@@ -35,7 +35,6 @@ echo "c.JupyterHub.spawner_class = 'kubespawner.KubeSpawner'" >> /srv/jupyterhub
 echo "c.KubeSpawner.hub_connect_url = 'http://jupyterhub-ingress.handl-ns.svc.cluster.local:80'" >> /srv/jupyterhub/jupyterhub_config.py
 
 echo "c.KubeSpawner.enable_user_namespaces = True" >> /srv/jupyterhub/jupyterhub_config.py
-echo "c.ResourceReflector.omit_namespace = False" >> /srv/jupyterhub/jupyterhub_config.py
 
 # Set the same Rancher's project label and annotation to the new namespaces
 echo "c.KubeSpawner.user_namespace_labels = {'field.cattle.io/projectId': '${PROJECTID_LABEL}'}" >> /srv/jupyterhub/jupyterhub_config.py
